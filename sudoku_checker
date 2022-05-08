@@ -1,0 +1,74 @@
+let puzzle = [
+  [8, 9, 5, 7, 4, 2, 1, 3, 6],
+  [2, 7, 1, 9, 6, 3, 4, 8, 5],
+  [4, 6, 3, 5, 8, 1, 7, 9, 2],
+
+  [9, 3, 4, 6, 1, 7, 2, 5, 8],
+  [5, 1, 7, 2, 3, 8, 9, 6, 4],
+  [6, 8, 2, 4, 5, 9, 3, 7, 1],
+
+  [1, 5, 9, 8, 7, 4, 6, 2, 3],
+  [7, 4, 6, 3, 2, 5, 8, 1, 9],
+  [3, 2, 8, 1, 9, 6, 5, 4, 7]
+];
+
+function getRow(puzzle, rowIndex) {
+  return puzzle[rowIndex];
+}
+
+function getColumn(puzzle, columnIndex) {
+  let columnReturn = [];
+  for (let i = 0; i < puzzle.length; i++) {
+    let row = puzzle[i];
+    columnReturn.push(row[columnIndex])   
+    }
+  return columnReturn;
+}
+
+function getSection(puzzle, xIndex, yIndex) {
+  let section = [];
+
+  for (let i = xIndex * 3; i < xIndex * 3 + 3; i++) {
+    let row = puzzle[i];
+    for (let j = 3 * yIndex; j < 3 * yIndex + 3; j++) {
+      let number = row[j];
+      section.push(number);
+    }
+  }
+  return section;
+}
+
+function includes1to9(arr) {
+  if (arr.length !== 9) {
+    return false;
+  }
+  for (i = 1; i < 10; i++) {
+    if (!arr.includes(i)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function validatePuzzle(puzzle) {
+  for (let i = 0; i < puzzle.length; i++) {
+    let row = getRow(puzzle, i);
+    if (!includes1to9(row)) {
+      return false;
+    }
+    let column = getColumn(puzzle, i);
+    if (!includes1to9(column)) {
+      return false;
+    }
+  }
+  for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < 2; j++) {
+      let section = getSection(puzzle, i, j);
+      if (!includes1to9) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+console.log(validatePuzzle(puzzle))
